@@ -25,7 +25,7 @@ function Login() {
   };
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
-      router.push("/dashboard");
+      router.push("/profile");
     }
   }, []);
   React.useEffect(() => {
