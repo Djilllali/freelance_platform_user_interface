@@ -1,0 +1,12 @@
+.footer {
+  width: 100%;
+  padding: 2rem;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+.line {
+  background-color: rgba(128, 128, 128, 0.324);
+  margin: 2rem;
+  height: 1px;
+}

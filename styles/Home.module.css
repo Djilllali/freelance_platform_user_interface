@@ -114,3 +114,25 @@
     flex-direction: column;
   }
 }
+
+.section {
+  padding: 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+.image {
+  max-width: 600px;
+}
+.section_paragraph {
+  font-size: 2.3rem;
+  max-width: 600px;
+  font-weight: 500;
+  font-family: "Poppins", "Roboto", sans-serif;
+}
+.section_paragraph span {
+  color: #5d37d0;
+  font-style: italic;
+}
