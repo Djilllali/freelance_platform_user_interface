@@ -2,6 +2,7 @@ export const baseUrl = "http://localhost:8090";
 export const signInUrl = baseUrl + "/users/login";
 export const profileUrl = baseUrl + "/users/get_profile";
 export const exploreJobsUrl = baseUrl + "/jobs/explore";
+export const JobDetailsUrl = baseUrl + "/jobs/";
 export const ModuleUrl = baseUrl + "/modules/fetch_modules";
 export const LicenseUrl = baseUrl + "/licenses/getLicenses";
 export const createModuleUrl = baseUrl + "/modules/create_module";

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { exploreJobs } from "../../reducers/jobsReducer";
 import Styles from "./jobs.module.css";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const { Option } = Select;
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -44,6 +45,9 @@ function index() {
 
   return (
     <div style={{ position: "relative" }}>
+      <Head>
+        <title>Explore jobs</title>
+      </Head>
       <Layout style={{ minHeight: "90vh" }}>
         <Sider
           width={260}

@@ -51,7 +51,13 @@ function Navbar() {
     <>
       <div className={Styles.navbar_wrapper}>
         <span>
-          <img className={Styles.logo} src="/turinglogo.png"></img>
+          <img
+            onClick={() => {
+              router.push("/");
+            }}
+            className={Styles.logo}
+            src="/turinglogo.png"
+          ></img>
         </span>
         {!isLoggedIn ? (
           <span>

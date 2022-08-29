@@ -1,8 +1,25 @@
 import { Button, Card, Tag, Typography } from "antd";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getJobDetails } from "../../reducers/jobdetailsReducer";
 import Styles from "./projectdetails.module.css";
 const { Title, Paragraph } = Typography;
 function ProjectDetails() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const jobDetailsResult = useSelector(
+    (state) => state.jobdetails.jobDetailsResult?.job
+  );
+  const jobDetailsError = useSelector(
+    (state) => state.jobdetails.jobDetailsError?.data
+  );
+  const isFetchingJob = useSelector((state) => state.jobdetails.isFetchingJob);
+
+  useEffect(() => {
+    dispatch(getJobDetails("62fb7bd4755cb4ca88b60ae3"));
+  }, []);
+
   return (
     <div className={Styles.wrapper}>
       <Card
