@@ -5,6 +5,8 @@ import { Typography } from "antd";
 const { Title, Paragraph } = Typography;
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../../reducers/dashboardReducer";
+import Styles from "./profile.module.css";
+import { Skeleton } from "antd";
 
 function index() {
   const dispatch = useDispatch();
@@ -19,30 +21,46 @@ function index() {
     dispatch(logout());
   };
   return (
-    <div style={{ padding: "3rem" }}>
-      <div>
+    <div
+      style={{
+        padding: "3rem",
+        width: "90%",
+        maxWidth: " 700px",
+        margin: "1rem auto",
+      }}
+    >
+      <div className={Styles.profile_header}>
         <div>
           <Avatar
             style={{
-              backgroundColor: "#2db7f5",
+              backgroundColor: "#5d37d0",
             }}
             size={128}
             icon={<UserOutlined />}
           />
         </div>
-        <div>
-          <Title level={2}>{fetchProfileResult?.name}</Title>
-          <Title level={5}>{fetchProfileResult?.domain?.name}</Title>
+        <div className={Styles.profile_header_name}>
+          {fetchProfileResult?.name ? (
+            <Title level={2}>{fetchProfileResult?.name}</Title>
+          ) : (
+            <Skeleton active paragraph={{ rows: 0 }}></Skeleton>
+          )}
+          {fetchProfileResult?.domain?.name ? (
+            <Title level={5}>{fetchProfileResult?.domain?.name}</Title>
+          ) : (
+            <Skeleton active paragraph={{ rows: 0 }}></Skeleton>
+          )}
         </div>
       </div>
       <br />
       <Title level={5}>Bio :</Title>
-      <Paragraph
-        ellipsis={{ rows: 2, expandable: true, symbol: "more" }}
-        style={{ maxWidth: "30rem" }}
-      >
-        {fetchProfileResult?.bio}
-      </Paragraph>
+      {fetchProfileResult?.bio ? (
+        <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "more" }}>
+          {fetchProfileResult?.bio}
+        </Paragraph>
+      ) : (
+        <Skeleton active paragraph={{ rows: 3 }}></Skeleton>
+      )}
       <br />
       <Title level={5}>Pack :</Title>
 

@@ -1,0 +1,6 @@
+.job_item {
+  cursor: pointer;
+}
+.job_item:hover {
+  background-color: rgba(211, 211, 211, 0.179);
+}

@@ -16,13 +16,27 @@
 
 .navbar_relative {
   min-height: 64px;
+  box-sizing: border-box;
+  padding: 1.2rem 5rem;
 }
 .logo {
   color: #5d37d0;
-  font-size: 1.7rem;
-  font-weight: 800;
+  height: 50px;
   display: inline;
 }
 .nav_btn {
   margin-right: 1rem;
+}
+.navbar_wrapper_rel {
+  width: 100%;
+
+  min-height: 64px;
+  box-sizing: border-box;
+  padding: 1.2rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 30;
+  background-color: rgb(251, 251, 251);
 }

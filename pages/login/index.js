@@ -25,7 +25,7 @@ function Login() {
   };
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
-      router.push("/profile");
+      router.push("/dashboard");
     }
   }, []);
   React.useEffect(() => {
@@ -35,7 +35,7 @@ function Login() {
       if (loginResult) {
         message.success(loginResult.message);
 
-        router.push("/profile");
+        router.push("/dashboard");
       }
     }
     dispatch(cleanupLogin());
@@ -69,7 +69,7 @@ function Login() {
         }}
       >
         <img
-          src={"https://placebear.com/g/200/100"}
+          src={"/turinglogo.png"}
           alt="QCM Geek"
           style={{ width: "10rem", margin: "0.5rem auto", display: "block" }}
         />{" "}
