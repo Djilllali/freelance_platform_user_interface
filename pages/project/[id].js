@@ -40,7 +40,7 @@ function ProjectDetails() {
           </>
         }
         actions={[
-          <Typography> Project ID : 62fb7bd4755cb4ca88b60ae3</Typography>,
+          <Typography> Estimated time : Three decades</Typography>,
           <Typography> Hourly rate: 400DA</Typography>,
           <Button type="primary"> Take Job</Button>,
         ]}
