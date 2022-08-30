@@ -39,7 +39,7 @@ export const {
   setFetchingJobs,
 } = jobsSlice.actions;
 
-export const fetchJobs = () => (dispatch, getState) => {
+export const fetchMyJobs = () => (dispatch, getState) => {
   const config = {
     method: "post",
     url: fetchJobsUrl,
