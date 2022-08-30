@@ -1,7 +1,22 @@
-import { CaretDownOutlined, StopOutlined } from "@ant-design/icons";
-import { Button, message, PageHeader, Table, Tag, Typography } from "antd";
+import {
+  CaretDownOutlined,
+  PlusCircleOutlined,
+  StopOutlined,
+} from "@ant-design/icons";
+import {
+  Button,
+  Form,
+  Input,
+  message,
+  Modal,
+  PageHeader,
+  Select,
+  Table,
+  Tag,
+  Typography,
+} from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cancelWithdrawalRequest,
@@ -9,6 +24,10 @@ import {
 } from "../../reducers/financialdashboardReducer";
 import Styles from "./financialdashboard.module.css";
 function index() {
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const handleOk = () => {};
+
+  const handleCancel = () => {};
   const dispatch = useDispatch();
   const fetchWithdrawalRequestsResult = useSelector(
     (state) => state.financialdashboard.fetchWithdrawalRequestsResult?.data
@@ -84,6 +103,17 @@ function index() {
         onBack={() => null}
         title="Financial Dashboard"
         subTitle="withdrawal requests"
+        children={[
+          <Button
+            onClick={() => {
+              setisModalVisible(true);
+            }}
+            icon={<PlusCircleOutlined />}
+            type="primary"
+          >
+            Create withdrawal request
+          </Button>,
+        ]}
       />
       <br />
       <Table
@@ -91,6 +121,27 @@ function index() {
         dataSource={fetchWithdrawalRequestsResult}
         loading={isFetchingWithdrawalRequests}
       />
+      <Modal
+        title="Create withdrawal request"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Form>
+          <Form.Item label="Select Project">
+            <Select>
+              <Select.Option>sdfsdfs</Select.Option>
+              <Select.Option>aaaaaa</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Payment type">
+            <Select>
+              <Select.Option>CCP</Select.Option>
+              <Select.Option>VISA</Select.Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 }
