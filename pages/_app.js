@@ -8,6 +8,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <Head>
+        <link rel="shortcut icon" href="turingicon.png" type="image/x-icon" />
+
         <title>Turing Jobs</title>
       </Head>
       <Navbar></Navbar>

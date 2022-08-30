@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../../reducers/dashboardReducer";
 import Styles from "./profile.module.css";
 import { Skeleton } from "antd";
+import Head from "next/head";
 
 function index() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function index() {
         margin: "1rem auto",
       }}
     >
+      <Head>
+        <title>Profile</title>
+      </Head>
       <div className={Styles.profile_header}>
         <div>
           <Avatar
