@@ -4,6 +4,7 @@ import dashboardReducer from "../reducers/dashboardReducer";
 import jobsReducer from "../reducers/jobsReducer";
 import jobdetailsReducer from "../reducers/jobdetailsReducer";
 import myjobsReducer from "../reducers/myjobsReducer";
+import financialdashboardReducer from "../reducers/financialdashboardReducer";
 export default configureStore({
   reducer: {
     login: loginReducer,
@@ -11,5 +12,6 @@ export default configureStore({
     jobs: jobsReducer,
     jobdetails: jobdetailsReducer,
     myjobs: myjobsReducer,
+    financialdashboard: financialdashboardReducer,
   },
 });
