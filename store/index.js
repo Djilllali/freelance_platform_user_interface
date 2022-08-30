@@ -3,11 +3,13 @@ import loginReducer from "../reducers/loginReducer";
 import dashboardReducer from "../reducers/dashboardReducer";
 import jobsReducer from "../reducers/jobsReducer";
 import jobdetailsReducer from "../reducers/jobdetailsReducer";
+import myjobsReducer from "../reducers/myjobsReducer";
 export default configureStore({
   reducer: {
     login: loginReducer,
     dashboard: dashboardReducer,
     jobs: jobsReducer,
     jobdetails: jobdetailsReducer,
+    myjobs: myjobsReducer,
   },
 });

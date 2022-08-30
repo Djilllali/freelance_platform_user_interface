@@ -103,7 +103,7 @@ function Navbar() {
               size="large"
               className={Styles.nav_btn}
               onClick={() => {
-                router.push("/current_work");
+                router.push("/myprojects");
               }}
             >
               My Projects
