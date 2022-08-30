@@ -4,6 +4,8 @@ export const profileUrl = baseUrl + "/users/get_profile";
 export const exploreJobsUrl = baseUrl + "/jobs/explore";
 export const fetchJobsUrl = baseUrl + "/jobs/myjobs";
 export const fetchWithdrawalRequestsUrl = baseUrl + "/jobs/withdrawal_requests";
+export const cancelWithdrawalRequestUrl =
+  baseUrl + "/jobs/cancel_withdrawal_request/";
 export const JobDetailsUrl = baseUrl + "/jobs/";
 export const ModuleUrl = baseUrl + "/modules/fetch_modules";
 export const LicenseUrl = baseUrl + "/licenses/getLicenses";

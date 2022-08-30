@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import axios from "axios";
-import { fetchWithdrawalRequestsUrl } from "../constants";
+import {
+  cancelWithdrawalRequestUrl,
+  fetchWithdrawalRequestsUrl,
+} from "../constants";
 
 export const WithdrawalRequestsSlice = createSlice({
   name: "financialdashboard",
@@ -58,6 +62,24 @@ export const fetchMyWithdrawalRequests = () => (dispatch, getState) => {
     })
     .catch((response) => {
       dispatch(setfetchWithdrawalRequestsResult(response.message));
+    });
+};
+export const cancelWithdrawalRequest = (id) => (dispatch, getState) => {
+  const config = {
+    method: "post",
+    url: `${cancelWithdrawalRequestUrl}${id}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.token,
+    },
+  };
+  axios(config)
+    .then((response) => {
+      message.success(response.data.message);
+      dispatch(fetchMyWithdrawalRequests());
+    })
+    .catch((response) => {
+      message.error(response.message);
     });
 };
 export default WithdrawalRequestsSlice.reducer;

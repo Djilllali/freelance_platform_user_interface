@@ -3,7 +3,10 @@ import { Button, message, PageHeader, Table, Tag, Typography } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyWithdrawalRequests } from "../../reducers/financialdashboardReducer";
+import {
+  cancelWithdrawalRequest,
+  fetchMyWithdrawalRequests,
+} from "../../reducers/financialdashboardReducer";
 import Styles from "./financialdashboard.module.css";
 function index() {
   const dispatch = useDispatch();
@@ -60,7 +63,8 @@ function index() {
           icon={<StopOutlined />}
           danger
           onClick={() => {
-            message.warn("calm down , are u sure ? ");
+            message.warn("wait .....");
+            dispatch(cancelWithdrawalRequest(item));
           }}
           type="ghost"
         >
