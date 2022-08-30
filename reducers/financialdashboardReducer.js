@@ -3,7 +3,7 @@ import axios from "axios";
 import { fetchWithdrawalRequestsUrl } from "../constants";
 
 export const WithdrawalRequestsSlice = createSlice({
-  name: "myWithdrawalRequests",
+  name: "financialdashboard",
   initialState: {
     fetchWithdrawalRequestsResult: null,
     fetchWithdrawalRequestsError: null,
@@ -41,7 +41,7 @@ export const {
 
 export const fetchMyWithdrawalRequests = () => (dispatch, getState) => {
   const config = {
-    method: "post",
+    method: "get",
     url: fetchWithdrawalRequestsUrl,
     headers: {
       "Content-Type": "application/json",
