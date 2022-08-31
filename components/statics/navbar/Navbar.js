@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "./navbar.module.css";
 import { cleanupLogin, logout } from "../../../reducers/loginReducer";
+import { fetchUserProfile } from "../../../reducers/dashboardReducer";
 
 function Navbar() {
   const loginResult = useSelector((state) => state.login.loginResult);
@@ -21,10 +22,18 @@ function Navbar() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isLoggedIn, setisLoggedIn] = useState(false);
+  const fetchProfileResult = useSelector(
+    (state) => state.dashboard.fetchProfileResult?.data
+  );
   useEffect(() => {
     if (localStorage.getItem("token")) setisLoggedIn(true);
     console.log("---------token ,", localStorage.getItem("token"));
   }, [loginResult]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchUserProfile());
+    }
+  }, [isLoggedIn]);
   const items = [
     { label: "Profile", key: "item-1-profile", icon: <UserOutlined /> },
     { label: "Settings", key: "item-2-settings", icon: <SettingOutlined /> },
@@ -138,7 +147,7 @@ function Navbar() {
                 }}
                 size={40}
               >
-                MK
+                {fetchProfileResult?.name[0].toUpperCase()}
               </Avatar>
             </Popover>
           </span>
