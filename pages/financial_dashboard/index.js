@@ -20,15 +20,38 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cancelWithdrawalRequest,
+  createWithdrawalRequest,
   fetchMyWithdrawalRequests,
 } from "../../reducers/financialdashboardReducer";
+import { fetchMyJobs } from "../../reducers/myjobsReducer";
 import Styles from "./financialdashboard.module.css";
+const { Option } = Select;
+
 function index() {
   const [isModalVisible, setisModalVisible] = useState(false);
-  const handleOk = () => {};
+  const [FormValues, setFormValues] = useState({
+    job_id: "",
+    payment_method: "",
+  });
 
-  const handleCancel = () => {};
+  const handleChange = (values, value) => {
+    console.log("---------- values ", values);
+    console.log("---------- value ", value);
+    setFormValues(value);
+  };
+  const handleOk = () => {
+    setisModalVisible(false);
+    dispatch(createWithdrawalRequest(FormValues));
+  };
+
+  const handleCancel = () => {
+    setisModalVisible(false);
+  };
+
   const dispatch = useDispatch();
+  const fetchJobsResult = useSelector(
+    (state) => state.myjobs.fetchJobsResult?.jobs
+  );
   const fetchWithdrawalRequestsResult = useSelector(
     (state) => state.financialdashboard.fetchWithdrawalRequestsResult?.data
   );
@@ -94,6 +117,7 @@ function index() {
   ];
   useEffect(() => {
     dispatch(fetchMyWithdrawalRequests());
+    dispatch(fetchMyJobs());
   }, []);
 
   return (
@@ -127,17 +151,19 @@ function index() {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Form>
-          <Form.Item label="Select Project">
+        <Form onValuesChange={handleChange}>
+          <Form.Item name="job_id" label="Select Project">
             <Select>
-              <Select.Option>sdfsdfs</Select.Option>
-              <Select.Option>aaaaaa</Select.Option>
+              {fetchJobsResult?.map((j) => (
+                <Option value={j._id}>{j.title}</Option>
+              ))}
             </Select>
           </Form.Item>
-          <Form.Item label="Payment type">
+          <Form.Item label="Payment type" name="payment_type">
             <Select>
-              <Select.Option>CCP</Select.Option>
-              <Select.Option>VISA</Select.Option>
+              <Option value="ccp">CCP</Option>
+              <Option value="visa">VISA</Option>
+              <Option value="cash">CASH</Option>
             </Select>
           </Form.Item>
         </Form>

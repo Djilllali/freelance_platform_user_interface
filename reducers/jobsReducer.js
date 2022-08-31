@@ -9,8 +9,16 @@ export const jobsSlice = createSlice({
     exploreJobsError: null,
     isExploringJobs: false,
     pathname: "/",
+    filters: {
+      keyword: "",
+      skills: [],
+      domain: "",
+    },
   },
   reducers: {
+    setFilters: (state, action) => {
+      state.filters = action.payload;
+    },
     setPathname: (state, action) => {
       state.pathname = action.payload;
     },
@@ -37,9 +45,11 @@ export const {
   setExploreJobsResult,
   setExploreJobsError,
   setExploringJobs,
+  setFilters,
 } = jobsSlice.actions;
 
 export const exploreJobs = () => (dispatch, getState) => {
+  let filters = getState().jobs.filters;
   const config = {
     method: "post",
     url: exploreJobsUrl,
@@ -47,6 +57,7 @@ export const exploreJobs = () => (dispatch, getState) => {
       "Content-Type": "application/json",
       Authorization: localStorage.token,
     },
+    data: { filters },
   };
   console.log("start fetching ...");
   dispatch(setExploringJobs(true));
@@ -59,5 +70,9 @@ export const exploreJobs = () => (dispatch, getState) => {
     .catch((response) => {
       dispatch(setExploreJobsResult(response.message));
     });
+};
+export const updateFilters = (fl) => (dispatch, getState) => {
+  dispatch(setFilters(fl));
+  dispatch(exploreJobs());
 };
 export default jobsSlice.reducer;

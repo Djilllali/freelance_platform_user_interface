@@ -1,13 +1,26 @@
-import { Checkbox, Form, Layout, Spin, Tag, Typography } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Layout,
+  Radio,
+  Space,
+  Spin,
+  Tag,
+  Typography,
+} from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect } from "react";
 import { Select } from "antd";
 import { Card } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { exploreJobs } from "../../reducers/jobsReducer";
+import { exploreJobs, updateFilters } from "../../reducers/jobsReducer";
 import Styles from "./jobs.module.css";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { getDomains } from "../../reducers/domainsReducer";
+import { SearchOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -37,10 +50,12 @@ function index() {
   const exploreJobsError = useSelector(
     (state) => state.jobs.exploreJobsError?.data
   );
+  const domains = useSelector((state) => state.domains.domainsResult?.data);
   const isExploringJobs = useSelector((state) => state.jobs.isExploringJobs);
 
   useEffect(() => {
     dispatch(exploreJobs());
+    dispatch(getDomains());
   }, []);
 
   return (
@@ -54,37 +69,47 @@ function index() {
           theme="light"
           style={{ padding: "1rem", paddingTop: "3rem" }}
         >
-          <Form>
+          <Form
+            initialValues={{ skills: [], domain: "", keyword: "" }}
+            onFinish={(value) => {
+              console.log("------------- filters updated ", value);
+              dispatch(updateFilters(value));
+            }}
+          >
             <Typography.Title level={5}> Keyword : </Typography.Title>
 
-            <Form.Item>
-              <Search
-                placeholder="search keyword"
-                onSearch={() => {}}
-                enterButton
-              />
+            <Form.Item name="keyword">
+              <Input placeholder="search keyword" suffix={<SearchOutlined />} />
             </Form.Item>
             <Typography.Title level={5}> Domains : </Typography.Title>
-            <Form.Item>
-              <Checkbox onChange={() => {}}>Informatique</Checkbox>
-              <br />
-              <Checkbox onChange={() => {}}>Santé</Checkbox>
-              <br />
-
-              <Checkbox onChange={() => {}}>Business</Checkbox>
-              <br />
-
-              <Checkbox onChange={() => {}}>Sciences humaines</Checkbox>
+            <Form.Item name="domain">
+              <Radio.Group>
+                <Space direction="vertical">
+                  {domains?.map((el) => (
+                    <Radio value={el._id}>{el.name}</Radio>
+                  ))}
+                </Space>
+              </Radio.Group>
             </Form.Item>
             <Typography.Title level={5}> Skills : </Typography.Title>
 
-            <Form.Item>
+            <Form.Item name="skills">
               <Select
+                placeholder="search by skills ..."
                 mode="tags"
                 style={{ width: "100%" }}
-                onChange={() => {}}
               ></Select>
             </Form.Item>
+
+            <Button
+              htmlType="submit"
+              style={{ width: "100%", maxWidth: "350px" }}
+              type="primary"
+              icon={<SearchOutlined />}
+            >
+              {" "}
+              Search
+            </Button>
           </Form>
         </Sider>
         <Content

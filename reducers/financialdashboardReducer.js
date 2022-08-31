@@ -4,6 +4,7 @@ import axios from "axios";
 import {
   cancelWithdrawalRequestUrl,
   fetchWithdrawalRequestsUrl,
+  createWithdrawalRequestUrl,
 } from "../constants";
 
 export const WithdrawalRequestsSlice = createSlice({
@@ -72,6 +73,26 @@ export const cancelWithdrawalRequest = (id) => (dispatch, getState) => {
       "Content-Type": "application/json",
       Authorization: localStorage.token,
     },
+  };
+  axios(config)
+    .then((response) => {
+      message.success(response.data.message);
+      dispatch(fetchMyWithdrawalRequests());
+    })
+    .catch((response) => {
+      message.error(response.message);
+    });
+};
+export const createWithdrawalRequest = (data) => (dispatch, getState) => {
+  console.log("------------------ create request data", data);
+  const config = {
+    method: "post",
+    url: `${createWithdrawalRequestUrl}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.token,
+    },
+    data: data,
   };
   axios(config)
     .then((response) => {
