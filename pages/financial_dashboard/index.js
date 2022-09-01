@@ -27,7 +27,7 @@ import { fetchMyJobs } from "../../reducers/myjobsReducer";
 import Styles from "./financialdashboard.module.css";
 const { Option } = Select;
 
-function index() {
+function Index() {
   const [isModalVisible, setisModalVisible] = useState(false);
   const [FormValues, setFormValues] = useState({
     job_id: "",
@@ -172,4 +172,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

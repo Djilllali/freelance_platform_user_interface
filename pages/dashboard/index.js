@@ -41,7 +41,7 @@ const tag_colors = [
   "#2db7f5",
 ];
 
-function index() {
+function Index() {
   const router = useRouter();
   const dispatch = useDispatch();
   const exploreJobsResult = useSelector(
@@ -182,4 +182,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

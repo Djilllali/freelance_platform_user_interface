@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyJobs } from "../../reducers/myjobsReducer";
 import Styles from "./myprojects.module.css";
-function index() {
+function Index() {
   const fetchJobsResult = useSelector(
     (state) => state.myjobs.fetchJobsResult?.jobs
   );
@@ -97,4 +97,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

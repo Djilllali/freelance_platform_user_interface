@@ -9,7 +9,7 @@ import Styles from "./profile.module.css";
 import { Skeleton } from "antd";
 import Head from "next/head";
 
-function index() {
+function Index() {
   const dispatch = useDispatch();
 
   const fetchProfileResult = useSelector(
@@ -86,4 +86,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
