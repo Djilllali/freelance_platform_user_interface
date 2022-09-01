@@ -19,7 +19,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobDetails, submitJob } from "../../reducers/jobdetailsReducer";
+import {
+  getJobDetails,
+  submitJob,
+  takeJob,
+} from "../../reducers/jobdetailsReducer";
 import Styles from "./projectdetails.module.css";
 const { Title, Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -109,7 +113,13 @@ function ProjectDetails() {
                   </Typography>,
                   <>
                     {jobDetailsResult?.status === "virgin" && (
-                      <Button key={`actionestitakejob`} type="primary">
+                      <Button
+                        onClick={() => {
+                          dispatch(takeJob(router.query.id));
+                        }}
+                        key={`actionestitakejob`}
+                        type="primary"
+                      >
                         {" "}
                         Take Job
                       </Button>

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import axios from "axios";
-import { JobDetailsUrl, submitJobUrl } from "../constants";
+import { JobDetailsUrl, submitJobUrl, takeJobUrl } from "../constants";
 
 export const jobDetailsSlice = createSlice({
   name: "jobdetails",
@@ -78,6 +78,25 @@ export const submitJob = (data, id) => (dispatch, getState) => {
     })
     .catch((response) => {
       message.error(" could not submit ");
+    });
+};
+export const takeJob = (id) => (dispatch, getState) => {
+  const config = {
+    method: "post",
+    url: `${takeJobUrl}`,
+    headers: {
+      Authorization: localStorage.token,
+    },
+    data: { _id: id },
+  };
+
+  axios(config)
+    .then((response) => {
+      message.success(" job took succesffuly ");
+      dispatch(getJobDetails(id));
+    })
+    .catch((response) => {
+      message.error(" job already taken");
     });
 };
 export default jobDetailsSlice.reducer;
