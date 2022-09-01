@@ -1,4 +1,8 @@
-import { FileZipOutlined, InboxOutlined } from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  FileZipOutlined,
+  InboxOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   Card,
@@ -120,7 +124,11 @@ function ProjectDetails() {
                     {" "}
                     Hourly rate: {jobDetailsResult?.client_price} DA
                   </Typography>,
-                  <Button type="primary"> Take Job</Button>,
+                  <>
+                    {jobDetailsResult?.status === "virgin" && (
+                      <Button type="primary"> Take Job</Button>
+                    )}
+                  </>,
                 ]}
               >
                 <div>
@@ -141,44 +149,70 @@ function ProjectDetails() {
                 </div>
               </Card>
 
-              <Card
-                style={{ margin: "2rem auto ", maxWidth: "900px" }}
-                title="Submit project"
-                actions={[
-                  <Button style={{ width: "90%" }} type="primary">
-                    {" "}
-                    Submit
-                  </Button>,
-                ]}
-              >
-                <Form
-                  layout="vertical"
-                  style={{ margin: "1rem auto" }}
-                  onValuesChange={(values, value) => {
-                    console.log("----------- submission ", values, value);
-                  }}
+              {jobDetailsResult?.status === "inprogress" && (
+                <Card
+                  style={{ margin: "2rem auto ", maxWidth: "900px" }}
+                  title="Submit project"
+                  actions={[
+                    <Button style={{ width: "90%" }} type="primary">
+                      {" "}
+                      Submit
+                    </Button>,
+                  ]}
                 >
-                  <Form.Item name="comment" label="Comment :">
-                    <TextArea
-                      placeholder="comment ..."
-                      style={{ margin: "1rem auto", padding: "1rem" }}
-                    ></TextArea>
-                  </Form.Item>
-                  <Form.Item name="file" label="Upload files :">
-                    <Dragger style={{}} {...props}>
-                      <p className="ant-upload-drag-icon">
-                        <FileZipOutlined />
-                      </p>
-                      <p
-                        className="ant-upload-text"
-                        style={{ padding: "2rem" }}
-                      >
-                        Click or drag file to this area to upload
-                      </p>
-                    </Dragger>
-                  </Form.Item>
-                </Form>
-              </Card>
+                  <Form
+                    layout="vertical"
+                    style={{ margin: "1rem auto" }}
+                    onValuesChange={(values, value) => {
+                      console.log("----------- submission ", values, value);
+                    }}
+                  >
+                    <Form.Item name="comment" label="Comment :">
+                      <TextArea
+                        placeholder="comment ..."
+                        style={{ margin: "1rem auto", padding: "1rem" }}
+                      ></TextArea>
+                    </Form.Item>
+                    <Form.Item name="file" label="Upload files :">
+                      <Dragger style={{}} {...props}>
+                        <p className="ant-upload-drag-icon">
+                          <FileZipOutlined />
+                        </p>
+                        <p
+                          className="ant-upload-text"
+                          style={{ padding: "2rem" }}
+                        >
+                          Click or drag file to this area to upload
+                        </p>
+                      </Dragger>
+                    </Form.Item>
+                  </Form>
+                </Card>
+              )}
+
+              {jobDetailsResult?.status === "finished" && (
+                <Card title="Submission details">
+                  <div>
+                    Message :
+                    <br />
+                    {jobDetailsResult?.submission?.message}
+                  </div>
+                  <div>
+                    attached file :
+                    <br />
+                    <FileZipOutlined />
+                    {jobDetailsResult?.submission?.file}
+                  </div>
+                  <div>
+                    date :
+                    <br />
+                    <CalendarOutlined />
+                    {new Date(
+                      jobDetailsResult?.submission?.time
+                    ).toLocaleDateString()}
+                  </div>
+                </Card>
+              )}
             </>
           )}
         </>
