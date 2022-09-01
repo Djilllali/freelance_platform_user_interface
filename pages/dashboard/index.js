@@ -86,7 +86,9 @@ function Index() {
               <Radio.Group>
                 <Space direction="vertical">
                   {domains?.map((el) => (
-                    <Radio value={el._id}>{el.name}</Radio>
+                    <Radio key={el._id} value={el._id}>
+                      {el.name}
+                    </Radio>
                   ))}
                 </Space>
               </Radio.Group>
@@ -151,6 +153,7 @@ function Index() {
                     <>
                       {" "}
                       <Card
+                        key={`exploreprojcard${index}`}
                         className={Styles.job_item}
                         type="inner"
                         title={proj.title}
@@ -164,7 +167,12 @@ function Index() {
                           <br />
                           {proj.skills?.map((skill) => {
                             return (
-                              <Tag color={tag_colors[color_index]}>{skill}</Tag>
+                              <Tag
+                                key={`skillsddf${skill}`}
+                                color={tag_colors[color_index]}
+                              >
+                                {skill}
+                              </Tag>
                             );
                           })}
                         </div>

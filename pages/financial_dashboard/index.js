@@ -155,7 +155,9 @@ function Index() {
           <Form.Item name="job_id" label="Select Project">
             <Select>
               {fetchJobsResult?.map((j) => (
-                <Option value={j._id}>{j.title}</Option>
+                <Option key={j._id} value={j._id}>
+                  {j.title}
+                </Option>
               ))}
             </Select>
           </Form.Item>

@@ -99,17 +99,20 @@ function ProjectDetails() {
                   </>
                 }
                 actions={[
-                  <Typography>
+                  <Typography key={`actionestimatedtime`}>
                     {" "}
                     Estimated time :{jobDetailsResult?.estimated_time} hours
                   </Typography>,
-                  <Typography>
+                  <Typography key={`actionhourlyrate`}>
                     {" "}
                     Hourly rate: {jobDetailsResult?.client_price} DA
                   </Typography>,
                   <>
                     {jobDetailsResult?.status === "virgin" && (
-                      <Button type="primary"> Take Job</Button>
+                      <Button key={`actionestitakejob`} type="primary">
+                        {" "}
+                        Take Job
+                      </Button>
                     )}
                   </>,
                 ]}
@@ -125,7 +128,9 @@ function ProjectDetails() {
 
                   <Title level={5}> Required Skills : </Title>
                   {jobDetailsResult?.skills?.map((sk) => (
-                    <Tag color="magenta">{sk}</Tag>
+                    <Tag key={`sk${sk}}`} color="magenta">
+                      {sk}
+                    </Tag>
                   ))}
 
                   <br />
