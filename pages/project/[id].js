@@ -19,7 +19,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobDetails } from "../../reducers/jobdetailsReducer";
+import { getJobDetails, submitJob } from "../../reducers/jobdetailsReducer";
 import Styles from "./projectdetails.module.css";
 const { Title, Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -40,7 +40,7 @@ function ProjectDetails() {
   }, [router.query]);
   const [Submission, setSubmission] = useState({
     message: "",
-    file: "",
+    file: null,
   });
   console.log("----------- job details ", jobDetailsResult);
   console.log("----------- router query ", router.query);
@@ -154,7 +154,20 @@ function ProjectDetails() {
                   style={{ margin: "2rem auto ", maxWidth: "900px" }}
                   title="Submit project"
                   actions={[
-                    <Button style={{ width: "90%" }} type="primary">
+                    <Button
+                      onClick={() => {
+                        let form_data = new FormData();
+                        form_data.append(
+                          "upload",
+                          Submission.file?.originFileObj
+                        );
+                        form_data.append("message", Submission.message);
+                        form_data.append("project_id", router.query.id);
+                        dispatch(submitJob(form_data, router.query.id));
+                      }}
+                      style={{ width: "90%" }}
+                      type="primary"
+                    >
                       {" "}
                       Submit
                     </Button>,
@@ -164,7 +177,12 @@ function ProjectDetails() {
                     layout="vertical"
                     style={{ margin: "1rem auto" }}
                     onValuesChange={(values, value) => {
-                      console.log("----------- submission ", values, value);
+                      console.log("----------- submission ", value);
+
+                      setSubmission({
+                        message: value.comment,
+                        file: value.file?.fileList[0],
+                      });
                     }}
                   >
                     <Form.Item name="comment" label="Comment :">
@@ -191,25 +209,36 @@ function ProjectDetails() {
               )}
 
               {jobDetailsResult?.status === "finished" && (
-                <Card title="Submission details">
+                <Card
+                  title="Submission details"
+                  style={{ margin: "2rem auto ", maxWidth: "900px" }}
+                >
                   <div>
-                    Message :
-                    <br />
-                    {jobDetailsResult?.submission?.message}
+                    <Typography.Title level={5}>Message :</Typography.Title>
+
+                    <Typography.Paragraph>
+                      {jobDetailsResult?.submission?.message}
+                    </Typography.Paragraph>
                   </div>
                   <div>
-                    attached file :
-                    <br />
-                    <FileZipOutlined />
-                    {jobDetailsResult?.submission?.file}
+                    <Typography.Title level={5}>
+                      Attached file :
+                    </Typography.Title>
+
+                    <Typography.Paragraph>
+                      <FileZipOutlined />
+                      {"      "} {jobDetailsResult?.submission?.file}
+                    </Typography.Paragraph>
                   </div>
                   <div>
-                    date :
-                    <br />
-                    <CalendarOutlined />
-                    {new Date(
-                      jobDetailsResult?.submission?.time
-                    ).toLocaleDateString()}
+                    <Typography.Title level={5}>Date :</Typography.Title>
+                    <Typography.Paragraph>
+                      <CalendarOutlined />
+                      {"      "}
+                      {new Date(
+                        jobDetailsResult?.submission?.time
+                      ).toLocaleDateString()}
+                    </Typography.Paragraph>
                   </div>
                 </Card>
               )}
