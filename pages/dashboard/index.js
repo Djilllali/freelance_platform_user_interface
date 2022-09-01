@@ -76,12 +76,12 @@ function index() {
               dispatch(updateFilters(value));
             }}
           >
-            <Typography.Title level={5}> Keyword : </Typography.Title>
+            <Typography.Title level={5}> Keyword </Typography.Title>
 
             <Form.Item name="keyword">
               <Input placeholder="search keyword" suffix={<SearchOutlined />} />
             </Form.Item>
-            <Typography.Title level={5}> Domains : </Typography.Title>
+            <Typography.Title level={5}> Domains </Typography.Title>
             <Form.Item name="domain">
               <Radio.Group>
                 <Space direction="vertical">
@@ -91,7 +91,7 @@ function index() {
                 </Space>
               </Radio.Group>
             </Form.Item>
-            <Typography.Title level={5}> Skills : </Typography.Title>
+            <Typography.Title level={5}> Skills </Typography.Title>
 
             <Form.Item name="skills">
               <Select

@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Form,
+  message,
   PageHeader,
   Spin,
   Tag,
@@ -12,7 +13,7 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobDetails } from "../../reducers/jobdetailsReducer";
 import Styles from "./projectdetails.module.css";
@@ -33,15 +34,18 @@ function ProjectDetails() {
   useEffect(() => {
     if (router?.query?.id) dispatch(getJobDetails(router.query.id));
   }, [router.query]);
-
+  const [Submission, setSubmission] = useState({
+    message: "",
+    file: "",
+  });
   console.log("----------- job details ", jobDetailsResult);
   console.log("----------- router query ", router.query);
 
   const props = {
     name: "file",
-    multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-
+    multiple: false,
+    action: "",
+    accept: "application/zip",
     onChange(info) {
       const { status } = info.file;
 
@@ -147,14 +151,20 @@ function ProjectDetails() {
                   </Button>,
                 ]}
               >
-                <Form layout="vertical" style={{ margin: "1rem auto" }}>
-                  <Form.Item label="Comment :">
+                <Form
+                  layout="vertical"
+                  style={{ margin: "1rem auto" }}
+                  onValuesChange={(values, value) => {
+                    console.log("----------- submission ", values, value);
+                  }}
+                >
+                  <Form.Item name="comment" label="Comment :">
                     <TextArea
                       placeholder="comment ..."
                       style={{ margin: "1rem auto", padding: "1rem" }}
                     ></TextArea>
                   </Form.Item>
-                  <Form.Item label="Upload files :">
+                  <Form.Item name="file" label="Upload files :">
                     <Dragger style={{}} {...props}>
                       <p className="ant-upload-drag-icon">
                         <FileZipOutlined />
