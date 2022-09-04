@@ -114,7 +114,7 @@
     flex-direction: column;
   }
 }
-turingplatform.ml .section {
+.section {
   padding: 3rem;
   display: flex;
   justify-content: space-around;

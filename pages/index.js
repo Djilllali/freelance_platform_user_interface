@@ -1,6 +1,5 @@
 import { Button } from "antd";
 import Head from "next/head";
-import Image from "next/image";
 import Footer from "../components/statics/Footer/Footer";
 import Navbar from "../components/statics/navbar/Navbar";
 import styles from "../styles/Home.module.css";

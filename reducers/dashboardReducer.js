@@ -41,7 +41,7 @@ export const {
 
 export const fetchUserProfile = () => (dispatch, getState) => {
   const config = {
-    method: "get",
+    method: "post",
     url: profileUrl,
     headers: {
       "Content-Type": "application/json",

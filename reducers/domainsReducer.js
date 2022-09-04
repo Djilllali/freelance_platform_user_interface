@@ -37,7 +37,7 @@ export const { setPathname, setDomainsResult, setDomainsError, setIsFetching } =
 
 export const getDomains = () => (dispatch, getState) => {
   const config = {
-    method: "get",
+    method: "post",
     url: getDomainsUrl,
     headers: {
       "Content-Type": "application/json",

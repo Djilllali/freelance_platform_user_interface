@@ -46,7 +46,7 @@ export const {
 
 export const fetchMyWithdrawalRequests = () => (dispatch, getState) => {
   const config = {
-    method: "get",
+    method: "post",
     url: fetchWithdrawalRequestsUrl,
     headers: {
       "Content-Type": "application/json",

@@ -42,7 +42,7 @@ export const {
 
 export const getJobDetails = (id) => (dispatch, getState) => {
   const config = {
-    method: "get",
+    method: "post",
     url: `${JobDetailsUrl}${id}`,
     headers: {
       "Content-Type": "application/json",
