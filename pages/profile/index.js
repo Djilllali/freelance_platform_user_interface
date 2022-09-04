@@ -71,17 +71,6 @@ function Index() {
       <Tag color="#2db7f5">{fetchProfileResult?.pack?.name}</Tag>
       <br />
       <br />
-      <Title level={5}>Skills :</Title>
-      <div>
-        <Tag color="red">React</Tag>
-        <Tag color="volcano">NodeJS</Tag>
-        <Tag color="orange">Redux</Tag>
-        <Tag color="gold">Javascript</Tag>
-        <Tag color="lime">python</Tag>
-        <Tag color="green">Mobile development</Tag>
-        <Tag color="cyan">SQL</Tag>
-        <Tag color="blue">noSQL</Tag>
-      </div>
     </div>
   );
 }

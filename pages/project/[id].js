@@ -2,6 +2,7 @@ import {
   CalendarOutlined,
   FileZipOutlined,
   InboxOutlined,
+  PaperClipOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -19,6 +20,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { baseUrl } from "../../constants";
 import {
   getJobDetails,
   submitJob,
@@ -135,7 +137,22 @@ function ProjectDetails() {
                     {jobDetailsResult?.description}
                   </Paragraph>
                   <br />
-
+                  {jobDetailsResult?.file && (
+                    <>
+                      <Title level={5}> Attachments : </Title>
+                      <a
+                        onClick={() => {
+                          window.open(
+                            baseUrl + `/files/${jobDetailsResult?.file}`
+                          );
+                        }}
+                      >
+                        {" "}
+                        <PaperClipOutlined /> {jobDetailsResult?.file}
+                      </a>
+                      <br />
+                    </>
+                  )}
                   <Title level={5}> Required Skills : </Title>
                   {jobDetailsResult?.skills?.map((sk) => (
                     <Tag key={`sk${sk}}`} color="magenta">
