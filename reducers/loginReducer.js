@@ -1,5 +1,6 @@
+import { message } from "antd";
 import axios from "axios";
-import { signInUrl } from "../constants";
+import { signInUrl, registerUrl } from "../constants";
 
 const { createSlice } = require("@reduxjs/toolkit");
 const loginReducer = createSlice({
@@ -65,6 +66,24 @@ export const fetchSignin = (data) => async (dispatch, getState) => {
     .catch((error) => {
       console.log(error);
       dispatch(setLoginError(error.response.data));
+    });
+};
+export const fetchRegister = (data) => async (dispatch, getState) => {
+  let config = {
+    method: "post",
+    url: registerUrl,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data,
+  };
+
+  axios(config)
+    .then((res) => {
+      message.success("Inscription réussite");
+    })
+    .catch((error) => {
+      message.error("Erreure lors de l'inscription");
     });
 };
 export default loginReducer.reducer;

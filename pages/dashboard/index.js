@@ -1,5 +1,6 @@
 import {
   Button,
+  Cascader,
   Checkbox,
   Form,
   Input,
@@ -75,6 +76,13 @@ function Index() {
               console.log("------------- filters updated ", value);
               dispatch(updateFilters(value));
             }}
+            onValuesChange={(value, values) => {
+              console.log(
+                "-------------------------filters changed ",
+                value,
+                values
+              );
+            }}
           >
             <Typography.Title level={5}> Keyword </Typography.Title>
 
@@ -83,15 +91,17 @@ function Index() {
             </Form.Item>
             <Typography.Title level={5}> Domains </Typography.Title>
             <Form.Item name="domain">
-              <Radio.Group>
-                <Space direction="vertical">
-                  {domains?.map((el) => (
-                    <Radio key={el._id} value={el._id}>
-                      {el.name}
-                    </Radio>
-                  ))}
-                </Space>
-              </Radio.Group>
+              <Cascader
+                placeholder="Please select"
+                options={domains?.map((el) => ({
+                  value: el._id,
+                  label: el.name,
+                  children: el.subdomains?.map((dom) => ({
+                    label: dom,
+                    value: dom,
+                  })),
+                }))}
+              ></Cascader>
             </Form.Item>
             <Typography.Title level={5}> Skills </Typography.Title>
 

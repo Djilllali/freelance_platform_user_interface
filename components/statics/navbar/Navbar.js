@@ -2,10 +2,12 @@ import {
   DollarOutlined,
   FileTextOutlined,
   LogoutOutlined,
+  MenuOutlined,
   MessageOutlined,
   ScheduleOutlined,
   SearchOutlined,
   SettingOutlined,
+  UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Menu, Popover } from "antd";
@@ -39,7 +41,36 @@ function Navbar() {
     { label: "Settings", key: "item-2-settings", icon: <SettingOutlined /> },
     { label: "Logout", key: "item-3-logout", icon: <LogoutOutlined /> },
   ];
-
+  const HamburgerLoggedInMenu = () => {
+    return (
+      <Menu
+        items={[
+          {
+            label: "Terms & conditions",
+            key: "hamburger_logout_terms",
+            icon: <FileTextOutlined />,
+          },
+          {
+            label: "Register",
+            key: "hamburger_logout_register",
+            icon: <UsergroupAddOutlined />,
+          },
+          {
+            label: "Login",
+            key: "hamburger_logout_login",
+            icon: <UserOutlined />,
+          },
+        ]}
+        onClick={(e) => {
+          if (e.key == "hamburger_logout_terms") router.push("/terms");
+          if (e.key == "hamburger_logout_register") router.push("/register");
+          if (e.key == "hamburger_logout_login") {
+            router.push("/login");
+          }
+        }}
+      />
+    );
+  };
   const ProfileMenu = () => {
     return (
       <Menu
@@ -68,8 +99,13 @@ function Navbar() {
             src="/turinglogo.png"
           ></img>
         </span>
+        <span className={Styles.hamburger}>
+          <Popover content={<HamburgerLoggedInMenu />} trigger="click">
+            <Button size="large" icon={<MenuOutlined />}></Button>
+          </Popover>
+        </span>
         {!isLoggedIn ? (
-          <span>
+          <span className={Styles.menulogged}>
             <Button
               type="text"
               icon={<FileTextOutlined />}
@@ -83,14 +119,14 @@ function Navbar() {
             </Button>
             <Button
               type="text"
-              icon={<MessageOutlined />}
+              icon={<UsergroupAddOutlined />}
               size="large"
               className={Styles.nav_btn}
               onClick={() => {
-                router.push("/contact");
+                router.push("/register");
               }}
             >
-              Contact Us
+              Register
             </Button>
             <Button
               onClick={() => {
@@ -105,7 +141,7 @@ function Navbar() {
             </Button>
           </span>
         ) : (
-          <span>
+          <span className={Styles.menulogged}>
             <Button
               type="text"
               icon={<ScheduleOutlined />}
@@ -152,12 +188,6 @@ function Navbar() {
             </Popover>
           </span>
         )}
-      </div>
-      <div className={Styles.navbar_wrapper_rel}>
-        <span>
-          <h3 className={Styles.logo}>Turing Jobs</h3>
-        </span>
-        <span></span>
       </div>
     </>
   );

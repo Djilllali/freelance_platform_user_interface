@@ -1,0 +1,11 @@
+.contact_card {
+  max-width: 600px;
+  display: block;
+  margin: 2rem auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .pageWrapper {
+    padding: 1rem;
+  }
+}

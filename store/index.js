@@ -6,6 +6,7 @@ import jobdetailsReducer from "../reducers/jobdetailsReducer";
 import myjobsReducer from "../reducers/myjobsReducer";
 import financialdashboardReducer from "../reducers/financialdashboardReducer";
 import domainsReducer from "../reducers/domainsReducer";
+import packsReducer from "../reducers/packsReducer";
 export default configureStore({
   reducer: {
     login: loginReducer,
@@ -15,5 +16,6 @@ export default configureStore({
     myjobs: myjobsReducer,
     financialdashboard: financialdashboardReducer,
     domains: domainsReducer,
+    packs: packsReducer,
   },
 });

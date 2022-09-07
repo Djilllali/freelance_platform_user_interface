@@ -1,6 +1,6 @@
-import { Avatar, Tag } from "antd";
+import { Avatar, Button, Tag } from "antd";
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
+import { EditOutlined, UserOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 const { Title, Paragraph } = Typography;
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,9 @@ function Index() {
 
   const fetchProfileResult = useSelector(
     (state) => state.dashboard.fetchProfileResult?.data
+  );
+  const isFetchingProfile = useSelector(
+    (state) => state.dashboard.isFetchingProfile
   );
   React.useEffect(() => {
     dispatch(fetchUserProfile());
@@ -57,11 +60,18 @@ function Index() {
         </div>
       </div>
       <br />
-      <Title level={5}>Bio :</Title>
-      {fetchProfileResult?.bio ? (
-        <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "more" }}>
-          {fetchProfileResult?.bio}
-        </Paragraph>
+      <Title level={5}>
+        Bio : {"   "}{" "}
+        <Button type="text" shape="circle" icon={<EditOutlined />} />
+      </Title>
+      {!isFetchingProfile ? (
+        <>
+          {fetchProfileResult?.bio && (
+            <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "more" }}>
+              {fetchProfileResult?.bio}
+            </Paragraph>
+          )}
+        </>
       ) : (
         <Skeleton active paragraph={{ rows: 3 }}></Skeleton>
       )}
