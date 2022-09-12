@@ -154,11 +154,13 @@ function Index() {
         <Form onValuesChange={handleChange}>
           <Form.Item name="job_id" label="Select Project">
             <Select>
-              {fetchJobsResult?.map((j) => (
-                <Option key={j._id} value={j._id}>
-                  {j.title}
-                </Option>
-              ))}
+              {fetchJobsResult
+                ?.filter((fc) => fc.status === "approved")
+                .map((j) => (
+                  <Option key={j._id} value={j._id}>
+                    {j.title}
+                  </Option>
+                ))}
             </Select>
           </Form.Item>
           <Form.Item label="Payment type" name="payment_type">

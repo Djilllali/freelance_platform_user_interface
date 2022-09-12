@@ -1,6 +1,7 @@
 export const baseUrl = "http://localhost:8090";
 export const signInUrl = baseUrl + "/users/login";
 export const profileUrl = baseUrl + "/users/get_profile";
+export const editprofileUrl = baseUrl + "/users/edit_profile";
 export const submitJobUrl = baseUrl + "/s3/submit_project";
 export const getpacksUrl = baseUrl + "/packs/get";
 export const registerUrl = baseUrl + "/register/register";

@@ -91,17 +91,13 @@ function Index() {
             </Form.Item>
             <Typography.Title level={5}> Domains </Typography.Title>
             <Form.Item name="domain">
-              <Cascader
+              <Select
                 placeholder="Please select"
                 options={domains?.map((el) => ({
                   value: el._id,
                   label: el.name,
-                  children: el.subdomains?.map((dom) => ({
-                    label: dom,
-                    value: dom,
-                  })),
                 }))}
-              ></Cascader>
+              ></Select>
             </Form.Item>
             <Typography.Title level={5}> Skills </Typography.Title>
 

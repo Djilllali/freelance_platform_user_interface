@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import axios from "axios";
-import { profileUrl } from "../constants";
+import { profileUrl, editprofileUrl } from "../constants";
 
 export const dashboardSlice = createSlice({
   name: "dashboard",
@@ -57,6 +58,28 @@ export const fetchUserProfile = () => (dispatch, getState) => {
     })
     .catch((response) => {
       dispatch(setProfileError(response.message));
+    });
+};
+export const editProfile = (data) => (dispatch, getState) => {
+  const config = {
+    method: "post",
+    url: editprofileUrl,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.token,
+    },
+    data: data,
+  };
+  console.log("start fetching ...");
+  dispatch(setFetchingProfile(true));
+
+  axios(config)
+    .then((response) => {
+      message.success("profile updated successfully");
+      dispatch(fetchUserProfile());
+    })
+    .catch((response) => {
+      message.success("error updating profile");
     });
 };
 export default dashboardSlice.reducer;

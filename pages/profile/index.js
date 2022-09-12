@@ -1,25 +1,28 @@
-import { Avatar, Button, Tag } from "antd";
-import React from "react";
+import { Avatar, Button, Form, Input, Select, Tag } from "antd";
+import React, { useState } from "react";
 import { EditOutlined, UserOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 const { Title, Paragraph } = Typography;
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile } from "../../reducers/dashboardReducer";
+import { editProfile, fetchUserProfile } from "../../reducers/dashboardReducer";
 import Styles from "./profile.module.css";
 import { Skeleton } from "antd";
 import Head from "next/head";
+import { getDomains } from "../../reducers/domainsReducer";
 
 function Index() {
   const dispatch = useDispatch();
-
+  const [EditProfile, setEditProfile] = useState(false);
   const fetchProfileResult = useSelector(
     (state) => state.dashboard.fetchProfileResult?.data
   );
   const isFetchingProfile = useSelector(
     (state) => state.dashboard.isFetchingProfile
   );
+  const domainsList = useSelector((state) => state.domains.domainsResult?.data);
   React.useEffect(() => {
     dispatch(fetchUserProfile());
+    dispatch(getDomains());
   }, []);
   const handleLogout = () => {
     dispatch(logout());
@@ -60,10 +63,7 @@ function Index() {
         </div>
       </div>
       <br />
-      <Title level={5}>
-        Bio : {"   "}{" "}
-        <Button type="text" shape="circle" icon={<EditOutlined />} />
-      </Title>
+      <Title level={5}>Bio : </Title>
       {!isFetchingProfile ? (
         <>
           {fetchProfileResult?.bio && (
@@ -81,6 +81,50 @@ function Index() {
       <Tag color="#2db7f5">{fetchProfileResult?.pack?.name}</Tag>
       <br />
       <br />
+      {!EditProfile && (
+        <Button
+          type="default"
+          shape=""
+          icon={<EditOutlined />}
+          onClick={() => {
+            setEditProfile(true);
+          }}
+        >
+          Edit Profile
+        </Button>
+      )}
+
+      {EditProfile && (
+        <>
+          <br />
+          <br />
+          <Form
+            layout="vertical"
+            onFinish={(values) => {
+              dispatch(editProfile(values));
+              setEditProfile(false);
+            }}
+          >
+            <Form.Item name="domain" label="Domain :">
+              <Select
+                placeholder="choose a domain"
+                options={domainsList?.map((dm) => ({
+                  label: dm.name,
+                  value: dm._id,
+                }))}
+              ></Select>
+            </Form.Item>
+            <Form.Item name="bio">
+              <Input.TextArea placeholder="add bio ..."></Input.TextArea>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </>
+      )}
     </div>
   );
 }
