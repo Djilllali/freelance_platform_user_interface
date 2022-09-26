@@ -117,6 +117,12 @@ function Index() {
             <Form.Item name="bio">
               <Input.TextArea placeholder="add bio ..."></Input.TextArea>
             </Form.Item>
+            <Form.Item name="personal_email">
+              <Input placeholder="edit email ..."></Input>
+            </Form.Item>
+            <Form.Item name="ccp">
+              <Input placeholder="edit CCP ..."></Input>
+            </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 Submit

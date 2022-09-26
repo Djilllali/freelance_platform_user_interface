@@ -55,7 +55,6 @@ function ProjectDetails() {
     name: "file",
     multiple: false,
     action: "",
-    accept: "application/zip",
   };
   return (
     <div className={Styles.wrapper}>
