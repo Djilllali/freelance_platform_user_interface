@@ -52,7 +52,7 @@ export const getpacks = () => (dispatch, getState) => {
       console.log("====== explore jobs ", response.data);
       dispatch(setpacksResult(response.data));
     })
-    .catch((response) => {
+    .catch((response) => { 
       dispatch(setpacksError(response.message));
     });
 };
